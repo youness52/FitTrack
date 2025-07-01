@@ -3,7 +3,10 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-nati
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Clock, Dumbbell, BarChart, Play } from 'lucide-react-native';
+import { Feather } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 import { useWorkoutStore } from '@/store/workoutStore';
 import ExerciseItem from '@/components/ExerciseItem';
 import Colors from '@/constants/colors';
@@ -12,10 +15,10 @@ export default function WorkoutDetailScreen() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
   const { workouts, customWorkouts, startWorkout } = useWorkoutStore();
-  
+
   const allWorkouts = [...workouts, ...customWorkouts];
   const workout = allWorkouts.find(w => w.id === id);
-  
+
   if (!workout) {
     return (
       <View style={styles.container}>
@@ -50,15 +53,15 @@ export default function WorkoutDetailScreen() {
 
         <View style={styles.metaContainer}>
           <View style={styles.metaItem}>
-            <Clock size={20} color={Colors.dark.primary} />
+            <Feather name="clock" size={20} color={Colors.dark.primary} />
             <Text style={styles.metaText}>{workout.duration} min</Text>
           </View>
           <View style={styles.metaItem}>
-            <Dumbbell size={20} color={Colors.dark.primary} />
+            <FontAwesome5 name="dumbbell" size={20} color={Colors.dark.primary} />
             <Text style={styles.metaText}>{workout.exercises.length} exercises</Text>
           </View>
           <View style={styles.metaItem}>
-            <BarChart size={20} color={Colors.dark.primary} />
+            <MaterialCommunityIcons name="chart-bar" size={20} color={Colors.dark.primary} />
             <Text style={styles.metaText}>{workout.difficulty}</Text>
           </View>
         </View>
@@ -66,21 +69,14 @@ export default function WorkoutDetailScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Exercises</Text>
           {workout.exercises.map((exercise, index) => (
-            <ExerciseItem
-              key={exercise.id}
-              exercise={exercise}
-              index={index}
-            />
+            <ExerciseItem key={exercise.id} exercise={exercise} index={index} />
           ))}
         </View>
       </ScrollView>
 
       <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.startButton}
-          onPress={handleStartWorkout}
-        >
-          <Play size={20} color={Colors.dark.text} />
+        <TouchableOpacity style={styles.startButton} onPress={handleStartWorkout}>
+          <Feather name="play" size={20} color={Colors.dark.text} />
           <Text style={styles.startButtonText}>Start Workout</Text>
         </TouchableOpacity>
       </View>

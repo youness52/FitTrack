@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert, Platform } from 'react-native';
 import { Image } from 'expo-image';
 import * as ImagePickerExpo from 'expo-image-picker';
-import { Camera, Image as ImageIcon } from 'lucide-react-native';
+import { Feather } from '@expo/vector-icons'; // Replaced lucide icons
 import Colors from '@/constants/colors';
 
 type ImagePickerProps = {
@@ -12,11 +12,11 @@ type ImagePickerProps = {
   size?: 'small' | 'medium' | 'large';
 };
 
-export default function ImagePicker({ 
-  currentImage, 
-  onImageSelected, 
-  placeholder = "Add Image",
-  size = 'medium'
+export default function ImagePicker({
+  currentImage,
+  onImageSelected,
+  placeholder = 'Add Image',
+  size = 'medium',
 }: ImagePickerProps) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -39,20 +39,15 @@ export default function ImagePicker({
     if (!hasPermission) return;
 
     if (Platform.OS === 'web') {
-      // For web, we'll use a fallback with predefined images
       showWebImageOptions();
       return;
     }
 
-    Alert.alert(
-      'Select Image',
-      'Choose an option',
-      [
-        { text: 'Camera', onPress: openCamera },
-        { text: 'Photo Library', onPress: openImageLibrary },
-        { text: 'Cancel', style: 'cancel' },
-      ]
-    );
+    Alert.alert('Select Image', 'Choose an option', [
+      { text: 'Camera', onPress: openCamera },
+      { text: 'Photo Library', onPress: openImageLibrary },
+      { text: 'Cancel', style: 'cancel' },
+    ]);
   };
 
   const showWebImageOptions = () => {
@@ -63,7 +58,7 @@ export default function ImagePicker({
       'https://images.unsplash.com/photo-1434608519344-49d77a699e1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
       'https://images.unsplash.com/photo-1566241142559-40e1dab266c6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
     ];
-    
+
     const randomImage = webImages[Math.floor(Math.random() * webImages.length)];
     onImageSelected(randomImage);
   };
@@ -137,21 +132,21 @@ export default function ImagePicker({
       disabled={isLoading}
     >
       {currentImage ? (
-        <Image
-          source={{ uri: currentImage }}
-          style={getImageStyle()}
-          contentFit="cover"
-        />
+        <Image source={{ uri: currentImage }} style={getImageStyle()} contentFit="cover" />
       ) : (
         <View style={styles.placeholder}>
-          <ImageIcon size={size === 'small' ? 20 : size === 'large' ? 32 : 24} color={Colors.dark.primary} />
+          <Feather
+            name="image"
+            size={size === 'small' ? 20 : size === 'large' ? 32 : 24}
+            color={Colors.dark.primary}
+          />
           <Text style={styles.placeholderText}>{placeholder}</Text>
         </View>
       )}
-      
+
       {currentImage && (
         <View style={styles.overlay}>
-          <Camera size={16} color={Colors.dark.text} />
+          <Feather name="camera" size={16} color={Colors.dark.text} />
         </View>
       )}
     </TouchableOpacity>

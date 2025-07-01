@@ -1,8 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Alert, Platform } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+  Alert,
+  Platform,
+} from 'react-native';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Clock, Dumbbell, BarChart, Trash2 } from 'lucide-react-native';
+import { Feather } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 import { Workout } from '@/types/workout';
 import { useWorkoutStore } from '@/store/workoutStore';
 import Colors from '@/constants/colors';
@@ -26,18 +37,14 @@ export default function WorkoutCard({ workout, onPress }: WorkoutCardProps) {
           deleteCustomWorkout(workout.id);
         }
       } else {
-        Alert.alert(
-          'Delete Workout',
-          `Are you sure you want to delete "${workout.name}"?`,
-          [
-            { text: 'Cancel', style: 'cancel' },
-            { 
-              text: 'Delete', 
-              style: 'destructive',
-              onPress: () => deleteCustomWorkout(workout.id)
-            }
-          ]
-        );
+        Alert.alert('Delete Workout', `Are you sure you want to delete "${workout.name}"?`, [
+          { text: 'Cancel', style: 'cancel' },
+          {
+            text: 'Delete',
+            style: 'destructive',
+            onPress: () => deleteCustomWorkout(workout.id),
+          },
+        ]);
       }
     };
     showConfirm();
@@ -59,16 +66,13 @@ export default function WorkoutCard({ workout, onPress }: WorkoutCardProps) {
         colors={['transparent', 'rgba(0,0,0,0.8)']}
         style={styles.gradient}
       />
-      
+
       {isCustomWorkout && (
-        <TouchableOpacity 
-          style={styles.deleteButton}
-          onPress={handleDelete}
-        >
-          <Trash2 size={16} color={Colors.dark.secondary} />
+        <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
+          <Feather name="trash-2" size={16} color={Colors.dark.secondary} />
         </TouchableOpacity>
       )}
-      
+
       <View style={styles.content}>
         <Text style={styles.title}>{workout.name}</Text>
         <Text style={styles.description} numberOfLines={2}>
@@ -76,15 +80,15 @@ export default function WorkoutCard({ workout, onPress }: WorkoutCardProps) {
         </Text>
         <View style={styles.metaContainer}>
           <View style={styles.metaItem}>
-            <Clock size={16} color={Colors.dark.primary} />
+            <Feather name="clock" size={16} color={Colors.dark.primary} />
             <Text style={styles.metaText}>{workout.duration} min</Text>
           </View>
           <View style={styles.metaItem}>
-            <Dumbbell size={16} color={Colors.dark.primary} />
+            <FontAwesome5 name="dumbbell" size={16} color={Colors.dark.primary} />
             <Text style={styles.metaText}>{workout.exercises.length} exercises</Text>
           </View>
           <View style={styles.metaItem}>
-            <BarChart size={16} color={Colors.dark.primary} />
+            <MaterialCommunityIcons name="chart-bar" size={16} color={Colors.dark.primary} />
             <Text style={styles.metaText}>{workout.difficulty}</Text>
           </View>
         </View>

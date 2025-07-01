@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Dumbbell, Heart, Speech, Timer, Settings } from 'lucide-react-native';
+import { FontAwesome5, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import Colors from '@/constants/colors';
 import { WorkoutCategory } from '@/types/workout';
 
@@ -17,17 +17,17 @@ export default function CategoryPill({ category, isSelected, onPress }: Category
 
     switch (category.icon) {
       case 'dumbbell':
-        return <Dumbbell size={size} color={color} />;
+        return <FontAwesome5 name="dumbbell" size={size} color={color} />;
       case 'heart':
-        return <Heart size={size} color={color} />;
+        return <Feather name="heart" size={size} color={color} />;
       case 'stretch':
-        return <Speech size={size} color={color} />;
+        return <MaterialCommunityIcons name="account-voice" size={size} color={color} />;
       case 'timer':
-        return <Timer size={size} color={color} />;
+        return <Feather name="clock" size={size} color={color} />;
       case 'settings':
-        return <Settings size={size} color={color} />;
+        return <Feather name="settings" size={size} color={color} />;
       default:
-        return <Dumbbell size={size} color={color} />;
+        return <FontAwesome5 name="dumbbell" size={size} color={color} />;
     }
   };
 

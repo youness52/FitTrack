@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
-import { Home, BarChart2, Plus, User } from 'lucide-react-native';
+import { Feather } from '@expo/vector-icons';
 import Colors from '@/constants/colors';
 
 export default function TabLayout() {
@@ -22,30 +22,30 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
-          tabBarIcon: ({ color }) => <Home size={22} color={color} />,
+          title: 'Home',
+          tabBarIcon: ({ color }) => <Feather name="home" size={22} color={color} />,
         }}
       />
       <Tabs.Screen
         name="history"
         options={{
-          title: "History",
-          tabBarIcon: ({ color }) => <BarChart2 size={22} color={color} />,
+          title: 'History',
+          tabBarIcon: ({ color }) => <Feather name="bar-chart-2" size={22} color={color} />,
         }}
       />
       <Tabs.Screen
         name="create"
         options={{
-          title: "Create",
-          tabBarIcon: ({ color }) => <Plus size={22} color={color} />,
-          href: "/workout/create",
+          title: 'Create',
+          tabBarIcon: ({ color }) => <Feather name="plus" size={22} color={color} />,
+          href: '/workout/create',
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Profile",
-          tabBarIcon: ({ color }) => <User size={22} color={color} />,
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <Feather name="user" size={22} color={color} />,
         }}
       />
     </Tabs>

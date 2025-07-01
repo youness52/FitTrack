@@ -2,7 +2,7 @@
   "name": "expo-app",
   "main": "expo-router/entry",
   "version": "1.0.0",
-   "scripts": {
+  "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -28,7 +28,6 @@
     "expo-symbols": "~0.4.4",
     "expo-system-ui": "~5.0.6",
     "expo-web-browser": "~14.1.6",
-    "lucide-react-native": "^0.475.0",
     "nativewind": "^4.1.23",
     "react": "19.0.0",
     "react-dom": "19.0.0",

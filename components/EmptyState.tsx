@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Dumbbell } from 'lucide-react-native';
+import { FontAwesome5 } from '@expo/vector-icons';
 import Colors from '@/constants/colors';
 
 type EmptyStateProps = {
@@ -12,12 +12,12 @@ export default function EmptyState({ title, message }: EmptyStateProps) {
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
-        <Dumbbell size={48} color={Colors.dark.primary} />
+        <FontAwesome5 name="dumbbell" size={36} color={Colors.dark.primary} />
       </View>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.message}>{message}</Text>
     </View>
-  );
+  ); 
 }
 
 const styles = StyleSheet.create({

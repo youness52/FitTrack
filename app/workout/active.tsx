@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Alert, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react-native';
+import { Feather } from '@expo/vector-icons';  // <-- import Feather icons
 import { useWorkoutStore } from '@/store/workoutStore';
 import ExerciseItem from '@/components/ExerciseItem';
 import WorkoutTimer from '@/components/WorkoutTimer';
@@ -114,7 +114,7 @@ export default function ActiveWorkoutScreen() {
           style={styles.closeButton}
           onPress={confirmQuit}
         >
-          <X size={24} color={Colors.dark.text} />
+          <Feather name="x" size={24} color={Colors.dark.text} />  {/* replaced X */}
         </TouchableOpacity>
         <View style={styles.headerCenter}>
           <Text style={styles.workoutName}>{activeWorkout.name}</Text>
@@ -162,13 +162,12 @@ export default function ActiveWorkoutScreen() {
           disabled={activeExerciseIndex === 0}
           onPress={() => {
             if (activeExerciseIndex > 0) {
-              // This is a simplified version - in a real app you'd need to handle this properly
               setIsResting(false);
               useWorkoutStore.setState({ activeExerciseIndex: activeExerciseIndex - 1 });
             }
           }}
         >
-          <ChevronLeft size={24} color={activeExerciseIndex === 0 ? Colors.dark.subtext : Colors.dark.text} />
+          <Feather name="chevron-left" size={24} color={activeExerciseIndex === 0 ? Colors.dark.subtext : Colors.dark.text} /> {/* replaced ChevronLeft */}
           <Text style={[styles.navButtonText, activeExerciseIndex === 0 && styles.disabledText]}>Previous</Text>
         </TouchableOpacity>
         
@@ -185,7 +184,7 @@ export default function ActiveWorkoutScreen() {
             onPress={handleSkip}
           >
             <Text style={styles.navButtonText}>Skip</Text>
-            <ChevronRight size={24} color={Colors.dark.text} />
+            <Feather name="chevron-right" size={24} color={Colors.dark.text} /> {/* replaced ChevronRight */}
           </TouchableOpacity>
         )}
       </View>

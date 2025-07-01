@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Search, Plus } from 'lucide-react-native';
+import { Feather } from '@expo/vector-icons';  // <-- import Feather icons here
 import { useWorkoutStore } from '@/store/workoutStore';
 import { WORKOUT_CATEGORIES } from '@/constants/workouts';
 import { Workout } from '@/types/workout';
@@ -38,13 +38,13 @@ export default function HomeScreen() {
         <Text style={styles.title}>Find Your Workout</Text>
         <View style={styles.headerButtons}>
           <TouchableOpacity style={styles.searchButton}>
-            <Search size={20} color={Colors.dark.text} />
+            <Feather name="search" size={20} color={Colors.dark.text} />  {/* replaced Search */}
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.createButton}
             onPress={handleCreateWorkout}
           >
-            <Plus size={20} color={Colors.dark.text} />
+            <Feather name="plus" size={20} color={Colors.dark.text} />   {/* replaced Plus */}
           </TouchableOpacity>
         </View>
       </View>
@@ -79,7 +79,7 @@ export default function HomeScreen() {
               style={styles.emptyCreateButton}
               onPress={handleCreateWorkout}
             >
-              <Plus size={20} color={Colors.dark.text} />
+              <Feather name="plus" size={20} color={Colors.dark.text} />  {/* replaced Plus */}
               <Text style={styles.createButtonText}>Create Workout</Text>
             </TouchableOpacity>
           </View>
@@ -91,7 +91,7 @@ export default function HomeScreen() {
         style={styles.fab}
         onPress={handleCreateWorkout}
       >
-        <Plus size={24} color={Colors.dark.text} />
+        <Feather name="plus" size={24} color={Colors.dark.text} />  {/* replaced Plus */}
       </TouchableOpacity>
     </View>
   );
@@ -102,11 +102,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.dark.background,
     padding: 16
-   
-   
   },
   header: {
-     paddingTop:30,
+    paddingTop:30,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -138,16 +136,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   categoriesContainer: {
-    height:50,
-      justifyContent: 'center',
-    alignItems: 'center',
+    height:70,
+    justifyContent: 'center',
+   
     paddingVertical: 16,
   },
   workoutsContainer: {
     marginTop:18,
     paddingBottom: 80,
     alignItems: 'center',
-    
   },
   emptyContainer: {
     padding: 24,

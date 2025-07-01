@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, TextInput, Modal } from 'react-native';
-import { Settings, Award, BarChart2, Calendar, Edit3, Plus, X } from 'lucide-react-native';
+import { Feather } from '@expo/vector-icons'; // <-- import Feather icons
 import { useWorkoutStore } from '@/store/workoutStore';
 import { useUserStore } from '@/store/userStore';
 import ImagePicker from '@/components/ImagePicker';
@@ -25,19 +25,19 @@ export default function ProfileScreen() {
       id: 'completed',
       label: 'Workouts Completed',
       value: completedWorkouts,
-      icon: <Award size={24} color={Colors.dark.primary} />,
+      icon: <Feather name="award" size={24} color={Colors.dark.primary} />, // Award
     },
     { 
       id: 'time',
       label: 'Total Workout Time',
       value: `${totalWorkoutTime} min`,
-      icon: <BarChart2 size={24} color={Colors.dark.primary} />,
+      icon: <Feather name="bar-chart-2" size={24} color={Colors.dark.primary} />, // BarChart2
     },
     { 
       id: 'streak',
       label: 'Current Streak',
       value: '3 days',
-      icon: <Calendar size={24} color={Colors.dark.primary} />,
+      icon: <Feather name="calendar" size={24} color={Colors.dark.primary} />, // Calendar
     },
   ];
 
@@ -69,13 +69,13 @@ export default function ProfileScreen() {
           style={styles.editButton}
           onPress={() => setIsEditing(!isEditing)}
         >
-          <Edit3 size={20} color={Colors.dark.text} />
+          <Feather name="edit-3" size={20} color={Colors.dark.text} /> {/* Edit3 */}
           <Text style={styles.editButtonText}>
             {isEditing ? 'Cancel' : 'Edit'}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.settingsButton}>
-          <Settings size={24} color={Colors.dark.text} />
+          <Feather name="settings" size={24} color={Colors.dark.text} /> {/* Settings */}
         </TouchableOpacity>
       </View>
       
@@ -141,7 +141,7 @@ export default function ProfileScreen() {
             style={styles.addGoalButton}
             onPress={() => setShowGoalModal(true)}
           >
-            <Plus size={16} color={Colors.dark.primary} />
+            <Feather name="plus" size={16} color={Colors.dark.primary} /> {/* Plus */}
           </TouchableOpacity>
         </View>
         
@@ -151,7 +151,7 @@ export default function ProfileScreen() {
               <View key={index} style={styles.goalItem}>
                 <Text style={styles.goalText}>{goal}</Text>
                 <TouchableOpacity onPress={() => removeGoal(goal)}>
-                  <X size={16} color={Colors.dark.secondary} />
+                  <Feather name="x" size={16} color={Colors.dark.secondary} /> {/* X */}
                 </TouchableOpacity>
               </View>
             ))
@@ -166,14 +166,14 @@ export default function ProfileScreen() {
         <View style={styles.achievementsContainer}>
           <View style={styles.achievement}>
             <View style={[styles.achievementIcon, { backgroundColor: `${Colors.dark.primary}20` }]}>
-              <Award size={24} color={Colors.dark.primary} />
+              <Feather name="award" size={24} color={Colors.dark.primary} /> {/* Award */}
             </View>
             <Text style={styles.achievementTitle}>First Workout</Text>
           </View>
           {completedWorkouts >= 5 && (
             <View style={styles.achievement}>
               <View style={[styles.achievementIcon, { backgroundColor: `${Colors.dark.secondary}20` }]}>
-                <BarChart2 size={24} color={Colors.dark.secondary} />
+                <Feather name="bar-chart-2" size={24} color={Colors.dark.secondary} /> {/* BarChart2 */}
               </View>
               <Text style={styles.achievementTitle}>5 Workouts Completed</Text>
             </View>
@@ -220,6 +220,9 @@ export default function ProfileScreen() {
     </ScrollView>
   );
 }
+
+// ... keep your styles unchanged
+
 
 const styles = StyleSheet.create({
   container: {

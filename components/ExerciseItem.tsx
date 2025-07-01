@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Image } from 'expo-image';
-import { Clock, Repeat } from 'lucide-react-native';
+import { Feather } from '@expo/vector-icons'; // ← Use Feather icons
 import { Exercise } from '@/types/workout';
 import Colors from '@/constants/colors';
 
@@ -37,7 +37,7 @@ export default function ExerciseItem({ exercise, index, isActive = false }: Exer
         <View style={styles.detailsContainer}>
           {exercise.sets && exercise.reps && (
             <View style={styles.detail}>
-              <Repeat size={14} color={Colors.dark.primary} />
+              <Feather name="repeat" size={14} color={Colors.dark.primary} />
               <Text style={styles.detailText}>
                 {exercise.sets} × {exercise.reps}
               </Text>
@@ -45,16 +45,16 @@ export default function ExerciseItem({ exercise, index, isActive = false }: Exer
           )}
           {exercise.duration && (
             <View style={styles.detail}>
-              <Clock size={14} color={Colors.dark.primary} />
+              <Feather name="clock" size={14} color={Colors.dark.primary} />
               <Text style={styles.detailText}>
                 {formatDuration(exercise.duration)}
               </Text>
             </View>
           )}
           <View style={styles.detail}>
-            <Clock size={14} color={Colors.dark.secondary} />
+            <Feather name="clock" size={14} color={Colors.dark.secondary} />
             <Text style={[styles.detailText, { color: Colors.dark.secondary }]}>
-              <Text>Rest: {formatDuration(exercise.restTime)}</Text>
+              Rest: {formatDuration(exercise.restTime)}
             </Text>
           </View>
         </View>

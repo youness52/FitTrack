@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Alert, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Plus, Trash2, Save } from 'lucide-react-native';
+import { Feather } from '@expo/vector-icons';
 import { useWorkoutStore } from '@/store/workoutStore';
 import ImagePicker from '@/components/ImagePicker';
 import Colors from '@/constants/colors';
@@ -200,7 +200,7 @@ export default function CreateWorkoutScreen() {
                 style={styles.removeButton}
                 onPress={() => removeExercise(exercise.id!)}
               >
-                <Trash2 size={16} color={Colors.dark.secondary} />
+                <Feather name="trash-2" size={16} color={Colors.dark.secondary} />
               </TouchableOpacity>
             </View>
             
@@ -264,7 +264,7 @@ export default function CreateWorkoutScreen() {
           style={styles.addButton}
           onPress={addExercise}
         >
-          <Plus size={20} color={Colors.dark.text} />
+          <Feather name="plus" size={20} color={Colors.dark.text} />
           <Text style={styles.addButtonText}>Add Exercise</Text>
         </TouchableOpacity>
       </View>
@@ -273,7 +273,7 @@ export default function CreateWorkoutScreen() {
         style={styles.saveButton}
         onPress={handleSave}
       >
-        <Save size={20} color={Colors.dark.text} />
+        <Feather name="save" size={20} color={Colors.dark.text} />
         <Text style={styles.saveButtonText}>Save Workout</Text>
       </TouchableOpacity>
     </ScrollView>

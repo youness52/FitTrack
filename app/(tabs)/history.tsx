@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Calendar, Clock, CheckCircle, XCircle, Trash2 } from 'lucide-react-native';
+import { Feather } from '@expo/vector-icons';
 import { useWorkoutStore } from '@/store/workoutStore';
 import { WorkoutHistory } from '@/types/workout';
 import EmptyState from '@/components/EmptyState';
@@ -25,31 +25,35 @@ export default function HistoryScreen() {
       <View style={styles.historyItem}>
         <View style={styles.historyHeader}>
           <Text style={styles.workoutName}>{item.workoutName}</Text>
-          <View style={[
-            styles.statusBadge, 
-            { backgroundColor: item.completed ? `${Colors.dark.success}20` : `${Colors.dark.secondary}20` }
-          ]}>
+          <View
+            style={[
+              styles.statusBadge,
+              { backgroundColor: item.completed ? `${Colors.dark.success}20` : `${Colors.dark.secondary}20` },
+            ]}
+          >
             {item.completed ? (
-              <CheckCircle size={14} color={Colors.dark.success} />
+              <Feather name="check-circle" size={14} color={Colors.dark.success} />
             ) : (
-              <XCircle size={14} color={Colors.dark.secondary} />
+              <Feather name="x-circle" size={14} color={Colors.dark.secondary} />
             )}
-            <Text style={[
-              styles.statusText, 
-              { color: item.completed ? Colors.dark.success : Colors.dark.secondary }
-            ]}>
+            <Text
+              style={[
+                styles.statusText,
+                { color: item.completed ? Colors.dark.success : Colors.dark.secondary },
+              ]}
+            >
               {item.completed ? 'Completed' : 'Abandoned'}
             </Text>
           </View>
         </View>
-        
+
         <View style={styles.historyDetails}>
           <View style={styles.detailItem}>
-            <Calendar size={16} color={Colors.dark.primary} />
+            <Feather name="calendar" size={16} color={Colors.dark.primary} />
             <Text style={styles.detailText}>{formatDate(item.date)}</Text>
           </View>
           <View style={styles.detailItem}>
-            <Clock size={16} color={Colors.dark.primary} />
+            <Feather name="clock" size={16} color={Colors.dark.primary} />
             <Text style={styles.detailText}>{item.duration} min</Text>
           </View>
         </View>
@@ -62,11 +66,8 @@ export default function HistoryScreen() {
       <View style={styles.header}>
         <Text style={styles.title}>Workout History</Text>
         {workoutHistory.length > 0 && (
-          <TouchableOpacity 
-            style={styles.clearButton}
-            onPress={clearHistory}
-          >
-            <Trash2 size={16} color={Colors.dark.secondary} />
+          <TouchableOpacity style={styles.clearButton} onPress={clearHistory}>
+            <Feather name="trash-2" size={16} color={Colors.dark.secondary} />
             <Text style={styles.clearButtonText}>Clear</Text>
           </TouchableOpacity>
         )}
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   header: {
-    paddingTop:30,
+    paddingTop: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

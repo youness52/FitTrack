@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { Play, Pause, SkipForward } from 'lucide-react-native';
+import { Feather } from '@expo/vector-icons'; // Use Feather icons
 import Colors from '@/constants/colors';
 
 type WorkoutTimerProps = {
@@ -10,11 +10,11 @@ type WorkoutTimerProps = {
   onSkip?: () => void;
 };
 
-export default function WorkoutTimer({ 
-  duration, 
-  isRest = false, 
+export default function WorkoutTimer({
+  duration,
+  isRest = false,
   onComplete,
-  onSkip
+  onSkip,
 }: WorkoutTimerProps) {
   const [timeLeft, setTimeLeft] = useState(duration);
   const [isActive, setIsActive] = useState(true);
@@ -65,44 +65,31 @@ export default function WorkoutTimer({
   return (
     <View style={styles.container}>
       <View style={styles.timerContainer}>
-        <View 
-          style={[
-            styles.progressBar, 
-            { backgroundColor: progressColor }
-          ]}
-        >
-          <View 
+        <View style={[styles.progressBar, { backgroundColor: progressColor }]}>
+          <View
             style={[
-              styles.progress, 
-              { 
+              styles.progress,
+              {
                 width: `${progress * 100}%`,
-                backgroundColor
-              }
-            ]} 
+                backgroundColor,
+              },
+            ]}
           />
         </View>
         <Text style={styles.timerText}>{formatTime(timeLeft)}</Text>
-        <Text style={styles.label}>
-          {isRest ? 'REST' : 'WORK'}
-        </Text>
+        <Text style={styles.label}>{isRest ? 'REST' : 'WORK'}</Text>
       </View>
       <View style={styles.controls}>
-        <TouchableOpacity 
-          style={styles.controlButton} 
-          onPress={toggleTimer}
-        >
+        <TouchableOpacity style={styles.controlButton} onPress={toggleTimer}>
           {isActive ? (
-            <Pause size={24} color={Colors.dark.text} />
+            <Feather name="pause" size={24} color={Colors.dark.text} />
           ) : (
-            <Play size={24} color={Colors.dark.text} />
+            <Feather name="play" size={24} color={Colors.dark.text} />
           )}
         </TouchableOpacity>
         {onSkip && (
-          <TouchableOpacity 
-            style={styles.controlButton} 
-            onPress={onSkip}
-          >
-            <SkipForward size={24} color={Colors.dark.text} />
+          <TouchableOpacity style={styles.controlButton} onPress={onSkip}>
+            <Feather name="skip-forward" size={24} color={Colors.dark.text} />
           </TouchableOpacity>
         )}
       </View>
