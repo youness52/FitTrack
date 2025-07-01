@@ -1,0 +1,50 @@
+{
+  "expo": {
+    "name": "Fit Track",
+    "slug": "FitTrack",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": ""
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.zbair.FitTrack"
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "origin": "https://rork.com/"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": "https://rork.com/"
+      },
+      "eas": {
+        "projectId": "1d6f7772-b69a-4c98-a2a2-127cc27ebc04"
+      }
+    }
+  }
+}
