@@ -17,7 +17,7 @@ export default function RootLayout() {
     // We're not adding custom fonts as per instructions
   });
 
-  useEffect(() => {
+  useEffect(() => { 
     if (error) {
       console.error(error);
     }
