@@ -100,7 +100,7 @@ export default function CreateWorkoutScreen() {
 
     // Calculate estimated duration based on exercises
     const totalExerciseTime = exercises.reduce((total, ex) => {
-      const exerciseTime = (ex.sets || 1) * ((ex.duration || 0) + (ex.restTime || 0));
+      const exerciseTime = (ex.sets || 1) * (((ex.duration * 60)  || 0) + (ex.restTime || 0));
       return total + exerciseTime;
     }, 0);
     
@@ -118,7 +118,7 @@ export default function CreateWorkoutScreen() {
         name: ex.name!,
         sets: ex.sets,
         reps: ex.reps,
-        duration: ex.duration,
+        duration: (ex.duration * 60),
         restTime: ex.restTime || 60,
         imageUrl: ex.imageUrl || 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
       })),
@@ -222,6 +222,17 @@ export default function CreateWorkoutScreen() {
             
             <View style={styles.exerciseDetails}>
               <View style={styles.exerciseDetail}>
+                <Text style={styles.detailLabel}>Duration(min)</Text>
+                <TextInput
+                  style={[styles.input, styles.numberInput]}
+                  value={exercise.duration?.toString()}
+                  onChangeText={(value) => updateExercise(exercise.id!, 'duration', parseInt(value) || 0)}
+                  keyboardType="number-pad"
+                  placeholder="30"
+                  placeholderTextColor={Colors.dark.subtext}
+                />
+              </View>
+                <View style={styles.exerciseDetail}>
                 <Text style={styles.detailLabel}>Sets</Text>
                 <TextInput
                   style={[styles.input, styles.numberInput]}

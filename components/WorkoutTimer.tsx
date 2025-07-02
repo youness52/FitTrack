@@ -36,7 +36,7 @@ export default function WorkoutTimer({
           }
           return prev - 1;
         });
-      }, 1000);
+      }, 900);
     } else if (!isActive && intervalRef.current) {
       clearInterval(intervalRef.current);
     }

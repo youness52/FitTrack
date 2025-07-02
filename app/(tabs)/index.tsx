@@ -86,13 +86,7 @@ export default function HomeScreen() {
         }
       />
 
-      {/* Floating Action Button */}
-      <TouchableOpacity 
-        style={styles.fab}
-        onPress={handleCreateWorkout}
-      >
-        <Feather name="plus" size={24} color={Colors.dark.text} />  {/* replaced Plus */}
-      </TouchableOpacity>
+    
     </View>
   );
 }
