@@ -37,9 +37,9 @@ export default function HomeScreen() {
       <View style={styles.header}>
         <Text style={styles.title}>Find Your Workout</Text>
         <View style={styles.headerButtons}>
-          <TouchableOpacity style={styles.searchButton}>
-            <Feather name="search" size={20} color={Colors.dark.text} />  {/* replaced Search */}
-          </TouchableOpacity>
+       {/*  <TouchableOpacity style={styles.searchButton}>
+            <Feather name="search" size={20} color={Colors.dark.text} />  
+          </TouchableOpacity>*/}
           <TouchableOpacity 
             style={styles.createButton}
             onPress={handleCreateWorkout}

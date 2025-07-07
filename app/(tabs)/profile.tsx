@@ -74,9 +74,9 @@ export default function ProfileScreen() {
             {isEditing ? 'Cancel' : 'Edit'}
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.settingsButton}>
-          <Feather name="settings" size={24} color={Colors.dark.text} /> {/* Settings */}
-        </TouchableOpacity>
+       {/* <TouchableOpacity style={styles.settingsButton}>
+          <Feather name="settings" size={24} color={Colors.dark.text} />   
+        </TouchableOpacity>*/}
       </View>
       
       <View style={styles.profileSection}>
@@ -112,7 +112,7 @@ export default function ProfileScreen() {
         ) : (
           <View style={styles.profileInfo}>
             <Text style={styles.profileName}>
-              {profile.name || 'Add your name'}
+              {profile.name || 'Your name'}
             </Text>
             <Text style={styles.profileBio}>
               {profile.bio || 'Add a bio to tell others about yourself'}
