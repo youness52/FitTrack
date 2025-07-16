@@ -2,7 +2,7 @@
   "expo": {
     "name": "Fit Track",
     "slug": "FitTrack",
-    "version": "1.1.0",
+    "version": "1.1.2",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -31,7 +31,7 @@
       [
         "expo-router",
         {
-          "origin": "https://rork.com/"
+          "origin": "https://zbair.net/"
         }
       ]
     ],
@@ -40,7 +40,7 @@
     },
     "extra": {
       "router": {
-        "origin": "https://rork.com/"
+        "origin": "https://zbair.net/"
       },
       "eas": {
         "projectId": "1d6f7772-b69a-4c98-a2a2-127cc27ebc04"
