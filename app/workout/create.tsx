@@ -120,9 +120,9 @@ export default function CreateWorkoutScreen() {
         reps: ex.reps,
         duration: (ex.duration * 60),
         restTime: ex.restTime || 60,
-        imageUrl: ex.imageUrl || 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+        imageUrl: ex.imageUrl || 'https://img.freepik.com/premium-vector/fitness-workout-related-silhouettes_1149279-17437.jpg'
       })),
-      imageUrl: workoutImage || 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+      imageUrl: workoutImage || 'https://static.vecteezy.com/system/resources/previews/022/282/708/non_2x/gym-icon-vector.jpg'
     };
 
     addCustomWorkout(newWorkout);
