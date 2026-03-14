@@ -29,8 +29,14 @@ const { width } = Dimensions.get('window');
 const cardWidth = width * 0.9;
 
 export default function WorkoutCard({ workout, onPress }: WorkoutCardProps) {
-  const { deleteCustomWorkout } = useWorkoutStore();
+  const { deleteCustomWorkout, toggleFavoriteWorkout, favoriteWorkoutIds } = useWorkoutStore();
   const isCustomWorkout = workout.category === 'custom';
+  const isFavorited = favoriteWorkoutIds.includes(workout.id);
+
+  const handleFavorite = () => {
+    Haptics.selectionAsync();
+    toggleFavoriteWorkout(workout.id);
+  };
 
   const handleDelete = () => {
     const showConfirm = () => {
@@ -72,6 +78,20 @@ export default function WorkoutCard({ workout, onPress }: WorkoutCardProps) {
         colors={['transparent', 'rgba(10, 10, 12, 0.4)', 'rgba(10, 10, 12, 0.95)']}
         style={styles.gradient}
       />
+
+      <TouchableOpacity
+        style={styles.favoriteButton}
+        onPress={handleFavorite}
+        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+      >
+        <BlurView intensity={30} tint="dark" style={StyleSheet.absoluteFill} />
+        <FontAwesome5
+          name="heart"
+          solid={isFavorited}
+          size={16}
+          color={isFavorited ? Colors.dark.secondary : Colors.dark.text}
+        />
+      </TouchableOpacity>
 
       {isCustomWorkout && (
         <TouchableOpacity
@@ -138,6 +158,21 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     height: '80%',
+  },
+  favoriteButton: {
+    position: 'absolute',
+    top: 16,
+    left: 16,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: Colors.dark.glass,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.1)',
   },
   deleteButton: {
     position: 'absolute',

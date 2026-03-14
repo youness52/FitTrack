@@ -16,7 +16,7 @@ import Colors from '@/constants/colors';
 export default function WorkoutDetailScreen() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
-  const { workouts, customWorkouts, startWorkout } = useWorkoutStore();
+  const { workouts, customWorkouts, startWorkout, toggleFavoriteWorkout, favoriteWorkoutIds } = useWorkoutStore();
 
   const allWorkouts = [...workouts, ...customWorkouts];
   const workout = allWorkouts.find(w => w.id === id);
@@ -33,6 +33,13 @@ export default function WorkoutDetailScreen() {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     startWorkout(workout);
     router.push('/workout/active');
+  };
+
+  const isFavorited = favoriteWorkoutIds.includes(workout.id);
+
+  const handleFavorite = () => {
+    Haptics.selectionAsync();
+    toggleFavoriteWorkout(workout.id);
   };
 
   return (
@@ -53,18 +60,32 @@ export default function WorkoutDetailScreen() {
             <View style={styles.imageContent}>
               <View style={styles.titleRow}>
                 <Text style={styles.title}>{workout.name}</Text>
-                {(workout.category === 'custom' || workout.category === 'ai-generated') && (
+                <View style={styles.actionButtonsRow}>
                   <TouchableOpacity
-                    style={styles.editButton}
-                    onPress={() => {
-                      Haptics.selectionAsync();
-                      router.push(`/workout/edit/${workout.id}`);
-                    }}
+                    style={styles.actionButton}
+                    onPress={handleFavorite}
                   >
                     <BlurView intensity={40} tint="light" style={StyleSheet.absoluteFill} />
-                    <Feather name="edit-2" size={16} color={Colors.dark.background} />
+                    <FontAwesome5
+                      name="heart"
+                      solid={isFavorited}
+                      size={16}
+                      color={isFavorited ? Colors.dark.secondary : Colors.dark.background}
+                    />
                   </TouchableOpacity>
-                )}
+                  {(workout.category === 'custom' || workout.category === 'ai-generated') && (
+                    <TouchableOpacity
+                      style={styles.actionButton}
+                      onPress={() => {
+                        Haptics.selectionAsync();
+                        router.push(`/workout/edit/${workout.id}`);
+                      }}
+                    >
+                      <BlurView intensity={40} tint="light" style={StyleSheet.absoluteFill} />
+                      <Feather name="edit-2" size={16} color={Colors.dark.background} />
+                    </TouchableOpacity>
+                  )}
+                </View>
               </View>
               <Text style={styles.description}>{workout.description}</Text>
             </View>
@@ -158,13 +179,17 @@ const styles = StyleSheet.create({
     flex: 1,
     letterSpacing: 0.5,
   },
-  editButton: {
+  actionButtonsRow: {
+    flexDirection: 'row',
+    gap: 8,
+    marginLeft: 12,
+  },
+  actionButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 12,
     overflow: 'hidden', // to contain the blur
   },
   description: {

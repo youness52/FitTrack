@@ -11,8 +11,10 @@ interface WorkoutState {
   activeWorkout: Workout | null;
   activeExerciseIndex: number;
   isWorkoutActive: boolean;
+  favoriteWorkoutIds: string[];
 
   // Actions
+  toggleFavoriteWorkout: (id: string) => void;
   addCustomWorkout: (workout: Workout) => void;
   updateCustomWorkout: (workout: Workout) => void;
   deleteCustomWorkout: (id: string) => void;
@@ -33,6 +35,18 @@ export const useWorkoutStore = create<WorkoutState>()(
       activeWorkout: null,
       activeExerciseIndex: 0,
       isWorkoutActive: false,
+      favoriteWorkoutIds: [],
+
+      toggleFavoriteWorkout: (id) => {
+        set((state) => {
+          const isFavorited = state.favoriteWorkoutIds.includes(id);
+          return {
+            favoriteWorkoutIds: isFavorited
+              ? state.favoriteWorkoutIds.filter((fid) => fid !== id)
+              : [...state.favoriteWorkoutIds, id],
+          };
+        });
+      },
 
 
       addCustomWorkout: (workout) => {

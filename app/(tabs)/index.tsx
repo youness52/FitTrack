@@ -11,14 +11,20 @@ import Colors from '@/constants/colors';
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { workouts, customWorkouts } = useWorkoutStore();
+  const { workouts, customWorkouts, favoriteWorkoutIds } = useWorkoutStore();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const allWorkouts = [...workouts, ...customWorkouts];
 
-  const filteredWorkouts = selectedCategory
+  const filteredWorkouts = (selectedCategory
     ? allWorkouts.filter(workout => workout.category === selectedCategory)
-    : allWorkouts;
+    : allWorkouts).sort((a, b) => {
+      const aFav = favoriteWorkoutIds.includes(a.id);
+      const bFav = favoriteWorkoutIds.includes(b.id);
+      if (aFav && !bFav) return -1;
+      if (!aFav && bFav) return 1;
+      return 0;
+    });
 
   const handleCategoryPress = useCallback((categoryId: string) => {
     setSelectedCategory(prev => prev === categoryId ? null : categoryId);
