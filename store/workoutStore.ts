@@ -11,7 +11,7 @@ interface WorkoutState {
   activeWorkout: Workout | null;
   activeExerciseIndex: number;
   isWorkoutActive: boolean;
-  
+
   // Actions
   addCustomWorkout: (workout: Workout) => void;
   updateCustomWorkout: (workout: Workout) => void;
@@ -21,6 +21,7 @@ interface WorkoutState {
   nextExercise: () => void;
   resetActiveWorkout: () => void;
   clearHistory: () => void;
+
 }
 
 export const useWorkoutStore = create<WorkoutState>()(
@@ -32,6 +33,7 @@ export const useWorkoutStore = create<WorkoutState>()(
       activeWorkout: null,
       activeExerciseIndex: 0,
       isWorkoutActive: false,
+
 
       addCustomWorkout: (workout) => {
         const newWorkout = {
@@ -104,6 +106,8 @@ export const useWorkoutStore = create<WorkoutState>()(
       clearHistory: () => {
         set({ workoutHistory: [] });
       },
+
+
     }),
     {
       name: 'workout-storage',

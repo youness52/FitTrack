@@ -100,7 +100,7 @@ export default function CreateWorkoutScreen() {
 
     // Calculate estimated duration based on exercises
     const totalExerciseTime = exercises.reduce((total, ex) => {
-      const exerciseTime = (ex.sets || 1) * (((ex.duration * 60)  || 0) + (ex.restTime || 0));
+      const exerciseTime = (ex.sets || 1) * ((((ex.duration || 0) * 60)  || 0) + (ex.restTime || 0));
       return total + exerciseTime;
     }, 0);
     
@@ -118,7 +118,7 @@ export default function CreateWorkoutScreen() {
         name: ex.name!,
         sets: ex.sets,
         reps: ex.reps,
-        duration: (ex.duration * 60),
+        duration: ((ex.duration || 0) * 60),
         restTime: ex.restTime || 60,
         imageUrl: ex.imageUrl || 'https://img.freepik.com/premium-vector/fitness-workout-related-silhouettes_1149279-17437.jpg'
       })),

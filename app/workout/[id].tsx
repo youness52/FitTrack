@@ -6,6 +6,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
 
 import { useWorkoutStore } from '@/store/workoutStore';
 import ExerciseItem from '@/components/ExerciseItem';
@@ -28,6 +30,7 @@ export default function WorkoutDetailScreen() {
   }
 
   const handleStartWorkout = () => {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     startWorkout(workout);
     router.push('/workout/active');
   };
@@ -42,12 +45,29 @@ export default function WorkoutDetailScreen() {
             contentFit="cover"
           />
           <LinearGradient
-            colors={['transparent', 'rgba(0,0,0,0.8)']}
+            colors={['transparent', 'rgba(10, 10, 12, 0.4)', 'rgba(10, 10, 12, 1)']}
             style={styles.gradient}
           />
-          <View style={styles.imageContent}>
-            <Text style={styles.title}>{workout.name}</Text>
-            <Text style={styles.description}>{workout.description}</Text>
+          <View style={styles.imageContentWrapper}>
+            <BlurView intensity={20} tint="dark" style={StyleSheet.absoluteFill} />
+            <View style={styles.imageContent}>
+              <View style={styles.titleRow}>
+                <Text style={styles.title}>{workout.name}</Text>
+                {(workout.category === 'custom' || workout.category === 'ai-generated') && (
+                  <TouchableOpacity
+                    style={styles.editButton}
+                    onPress={() => {
+                      Haptics.selectionAsync();
+                      router.push(`/workout/edit/${workout.id}`);
+                    }}
+                  >
+                    <BlurView intensity={40} tint="light" style={StyleSheet.absoluteFill} />
+                    <Feather name="edit-2" size={16} color={Colors.dark.background} />
+                  </TouchableOpacity>
+                )}
+              </View>
+              <Text style={styles.description}>{workout.description}</Text>
+            </View>
           </View>
         </View>
 
@@ -57,12 +77,12 @@ export default function WorkoutDetailScreen() {
             <Text style={styles.metaText}>{workout.duration} min</Text>
           </View>
           <View style={styles.metaItem}>
-            <FontAwesome5 name="dumbbell" size={20} color={Colors.dark.primary} />
+            <FontAwesome5 name="dumbbell" size={18} color={Colors.dark.primary} />
             <Text style={styles.metaText}>{workout.exercises.length} exercises</Text>
           </View>
           <View style={styles.metaItem}>
-            <MaterialCommunityIcons name="chart-bar" size={20} color={Colors.dark.primary} />
-            <Text style={styles.metaText}>{workout.difficulty}</Text>
+            <MaterialCommunityIcons name="chart-bar" size={22} color={Colors.dark.primary} />
+            <Text style={[styles.metaText, { textTransform: 'capitalize' }]}>{workout.difficulty}</Text>
           </View>
         </View>
 
@@ -96,7 +116,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   imageContainer: {
-    height: 240,
+    height: 320, // Increased height for better hero feel
     position: 'relative',
   },
   image: {
@@ -108,40 +128,74 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    height: '70%',
+    height: '80%', // longer gradient fade
   },
-  imageContent: {
+  imageContentWrapper: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    padding: 16,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255,255,255,0.05)',
+    overflow: 'hidden',
+    borderTopLeftRadius: 24, // Optional: if we want a card-like pop
+    borderTopRightRadius: 24,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: Colors.dark.text,
+  imageContent: {
+    padding: 24,
+    paddingBottom: 32,
+  },
+  titleRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 8,
   },
+  title: {
+    fontSize: 28,
+    fontWeight: '900',
+    color: Colors.dark.text,
+    flex: 1,
+    letterSpacing: 0.5,
+  },
+  editButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 12,
+    overflow: 'hidden', // to contain the blur
+  },
   description: {
-    fontSize: 14,
+    fontSize: 15,
     color: Colors.dark.subtext,
+    lineHeight: 22,
   },
   metaContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingVertical: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.dark.border,
+    justifyContent: 'space-evenly',
+    paddingVertical: 20,
+    backgroundColor: Colors.dark.surface, // Distinct pop from background
+    marginHorizontal: 16,
+    marginTop: -20, // Pull it up over the image gradient slightly
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 5,
+    borderWidth: 1,
+    borderColor: Colors.dark.border,
   },
   metaItem: {
     alignItems: 'center',
-    gap: 4,
+    gap: 8,
   },
   metaText: {
     fontSize: 14,
     color: Colors.dark.text,
-    fontWeight: '500',
+    fontWeight: '600',
   },
   section: {
     padding: 16,

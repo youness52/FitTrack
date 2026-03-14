@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { FontAwesome5, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import * as Haptics from 'expo-haptics';
 import Colors from '@/constants/colors';
 import { WorkoutCategory } from '@/types/workout';
 
@@ -31,15 +33,8 @@ export default function CategoryPill({ category, isSelected, onPress }: Category
     }
   };
 
-  return (
-    <TouchableOpacity
-      style={[
-        styles.container,
-        isSelected ? styles.selectedContainer : null,
-      ]}
-      onPress={() => onPress(category.id)}
-      activeOpacity={0.7}
-    >
+  const content = (
+    <>
       {getIcon()}
       <Text
         style={[
@@ -49,33 +44,71 @@ export default function CategoryPill({ category, isSelected, onPress }: Category
       >
         {category.name}
       </Text>
+    </>
+  );
+
+  return (
+    <TouchableOpacity
+      style={[
+        styles.container,
+        isSelected && styles.containerBaseSelected, // base style when selected just for layout
+      ]}
+      onPress={() => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        onPress(category.id);
+      }}
+      activeOpacity={0.7}
+    >
+      {isSelected ? (
+        <LinearGradient
+          colors={[Colors.dark.primary, Colors.dark.secondary]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.gradientContainer}
+        >
+          {content}
+        </LinearGradient>
+      ) : (
+        content
+      )}
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 24, // softer edges
+    backgroundColor: Colors.dark.surface,
+    marginRight: 12, // more spacing
+    borderWidth: 1,
+    borderColor: Colors.dark.border,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  containerBaseSelected: {
+    paddingHorizontal: 0,
+    paddingVertical: 0,
+    borderWidth: 0,
+  },
+  gradientContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    backgroundColor: Colors.dark.card,
-    marginRight: 8,
-    borderWidth: 1,
-    borderColor: Colors.dark.border,
-    gap: 6,
-  },
-  selectedContainer: {
-    backgroundColor: Colors.dark.primary,
-    borderColor: Colors.dark.primary,
+    paddingVertical: 10,
+    borderRadius: 24,
+    gap: 8,
   },
   text: {
     fontSize: 14,
-    color: Colors.dark.primary,
+    color: Colors.dark.subtext, // slightly faded when inactive
+    fontWeight: '600',
+    marginLeft: 8, // margin instead of gap since we handle content manually now if not in gradient
   },
   selectedText: {
-    color: Colors.dark.text,
-    fontWeight: '500',
+    color: Colors.dark.background, // high contrast text on light neon gradient
+    fontWeight: '800',
+    marginLeft: 0, // In the active state, the gap from gradientContainer takes over or we just zero it out, lets keep it 0 here and add a wrapper or use the gap property if we keep content as flex-row. Actually, I will fix the default layout below to ensure flex-row always.
   },
 });

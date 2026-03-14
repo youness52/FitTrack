@@ -17,7 +17,7 @@ export default function RootLayout() {
     // We're not adding custom fonts as per instructions
   });
 
-  useEffect(() => { 
+  useEffect(() => {
     if (error) {
       console.error(error);
     }
@@ -56,29 +56,37 @@ function RootLayoutNav() {
         }}
       >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen 
-          name="workout/[id]" 
-          options={{ 
+        <Stack.Screen
+          name="workout/[id]"
+          options={{
             headerShown: true,
             title: "",
             animation: 'slide_from_right',
-          }} 
+          }}
         />
-        <Stack.Screen 
-          name="workout/active" 
-          options={{ 
+        <Stack.Screen
+          name="workout/active"
+          options={{
             headerShown: false,
             animation: 'slide_from_bottom',
             presentation: 'modal',
-          }} 
+          }}
         />
-        <Stack.Screen 
-          name="workout/create" 
-          options={{ 
+        <Stack.Screen
+          name="workout/create"
+          options={{
             headerShown: true,
             title: "",
             animation: 'slide_from_right',
-          }} 
+          }}
+        />
+        <Stack.Screen
+          name="workout/edit/[id]"
+          options={{
+            headerShown: true,
+            title: "Edit Workout",
+            animation: 'slide_from_right',
+          }}
         />
       </Stack>
     </>

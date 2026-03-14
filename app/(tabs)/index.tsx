@@ -13,9 +13,9 @@ export default function HomeScreen() {
   const router = useRouter();
   const { workouts, customWorkouts } = useWorkoutStore();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  
+
   const allWorkouts = [...workouts, ...customWorkouts];
-  
+
   const filteredWorkouts = selectedCategory
     ? allWorkouts.filter(workout => workout.category === selectedCategory)
     : allWorkouts;
@@ -35,18 +35,16 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Find Your Workout</Text>
-        <View style={styles.headerButtons}>
-       {/*  <TouchableOpacity style={styles.searchButton}>
-            <Feather name="search" size={20} color={Colors.dark.text} />  
-          </TouchableOpacity>*/}
-          <TouchableOpacity 
-            style={styles.createButton}
-            onPress={handleCreateWorkout}
-          >
-            <Feather name="plus" size={20} color={Colors.dark.text} />   {/* replaced Plus */}
-          </TouchableOpacity>
+        <View style={styles.headerTextGroup}>
+          <Text style={styles.greeting}>Ready to crush it?</Text>
+          <Text style={styles.title}>Find Your Workout</Text>
         </View>
+        <TouchableOpacity
+          style={styles.createButton}
+          onPress={handleCreateWorkout}
+        >
+          <Feather name="plus" size={24} color={Colors.dark.background} />
+        </TouchableOpacity>
       </View>
 
       <FlatList
@@ -75,7 +73,7 @@ export default function HomeScreen() {
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>No workouts found</Text>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.emptyCreateButton}
               onPress={handleCreateWorkout}
             >
@@ -86,7 +84,7 @@ export default function HomeScreen() {
         }
       />
 
-    
+
     </View>
   );
 }
@@ -95,49 +93,54 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.dark.background,
-    padding: 16
   },
   header: {
-    paddingTop:30,
+    paddingTop: 60,
+    paddingHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 20,
+  },
+  headerTextGroup: {
+    flex: 1,
+  },
+  greeting: {
+    fontSize: 16,
+    color: Colors.dark.secondary,
+    fontWeight: '600',
+    marginBottom: 4,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 28,
+    fontWeight: '900',
     color: Colors.dark.text,
-  },
-  headerButtons: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  searchButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: Colors.dark.card,
-    justifyContent: 'center',
-    alignItems: 'center',
+    letterSpacing: -0.5,
   },
   createButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     backgroundColor: Colors.dark.primary,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: Colors.dark.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    elevation: 8,
   },
   categoriesContainer: {
-    height:70,
-    justifyContent: 'center',
-   
-    paddingVertical: 16,
+    height: 70,
+    paddingHorizontal: 20,
+    alignItems: 'center',
   },
   workoutsContainer: {
-    marginTop:18,
-    paddingBottom: 80,
+    marginTop: 24,
+    paddingHorizontal: 20,
+    paddingBottom: 100,
     alignItems: 'center',
   },
   emptyContainer: {

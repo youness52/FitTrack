@@ -42,6 +42,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="ai-coach"
+        options={{
+          title: 'AI Coach',
+          tabBarIcon: ({ color }) => <Feather name="zap" size={22} color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
