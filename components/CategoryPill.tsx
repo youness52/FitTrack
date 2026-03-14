@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
 
     backgroundColor: Colors.dark.surface,
     marginRight: 12, // more spacing
-    marginBottom: 12,
+    marginBottom: 32,
   
     borderWidth: 1,
     borderColor: Colors.dark.border,
