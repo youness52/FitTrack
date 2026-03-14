@@ -9,7 +9,7 @@ import { generateWorkoutFromAI } from '@/services/aiService';
 export default function AiCoachScreen() {
     const router = useRouter();
     const { addCustomWorkout } = useWorkoutStore();
-    const geminiApiKey = 'AIzaSyCW_BN7C2UeABRthg0Ekjm6s37ZM_T7JRw' || '';
+    const geminiApiKey = 'AIzaSyCW_BN7C2UeABRthg0Ekjm6s37ZM_T7JRw';
 
 
     const [goals, setGoals] = useState('');
