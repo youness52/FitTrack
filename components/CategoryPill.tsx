@@ -77,15 +77,22 @@ export default function CategoryPill({ category, isSelected, onPress }: Category
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderRadius: 24, // softer edges
+    
+
     backgroundColor: Colors.dark.surface,
     marginRight: 12, // more spacing
+    marginBottom: 12,
+  
     borderWidth: 1,
     borderColor: Colors.dark.border,
     justifyContent: 'center',
+   
+        flexDirection: 'row',
     alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 24,
+    gap: 8
   },
   containerBaseSelected: {
     paddingHorizontal: 0,
