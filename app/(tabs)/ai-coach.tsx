@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, ActivityIndicator, Alert, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
@@ -6,10 +6,26 @@ import { useWorkoutStore } from '@/store/workoutStore';
 import Colors from '@/constants/colors';
 import { generateWorkoutFromAI } from '@/services/aiService';
 
+const [geminiApiKey, setGeminiApiKey] = useState(null);
+
+React.useEffect(() => {
+    const fetchKey = async () => {
+        try {
+            const res = await fetch("https://api-indol-theta-99.vercel.app/api/key");
+            const data = await res.json();
+            setGeminiApiKey(data.apiKey);
+        } catch (error) {
+            console.error("Error fetching API key:", error);
+        }
+    };
+
+    fetchKey();
+}, []);
+
 export default function AiCoachScreen() {
     const router = useRouter();
     const { addCustomWorkout } = useWorkoutStore();
-    const geminiApiKey = 'AIzaSyCW_BN7C2UeABRthg0Ekjm6s37ZM_T7JRw';
+    //const geminiApiKey = 'AIzaSyCW_BN7C2UeABRthg0Ekjm6s37ZM_T7JRw';
 
 
     const [goals, setGoals] = useState('');
