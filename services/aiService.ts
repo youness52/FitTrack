@@ -8,30 +8,45 @@ You MUST respond ONLY with a valid JSON object representing a workout.
 
 The JSON MUST match the following TypeScript structure exactly:
 {
-"name": "string (Short, catchy name for the workout)",
-"description": "string (A brief motivation and summary)",
-"category": "ai-generated",
-"difficulty": "beginner" | "intermediate" | "advanced",
-"duration": number (total minutes, must be greater than 0),
-"imageUrl": "string (A real, high-quality stock photo URL. Use: https://images.unsplash.com/photo-[ID]?auto=format&fit=crop&q=80&w=800&h=600 or a descriptive source like https://source.unsplash.com/featured/?gym,workout)",
-"exercises": [
-{
-"id": "string (unique random id)",
-"name": "string (name of exercise)",
-"sets": number,
-"reps": number,
-"duration": number (in seconds, 0 if using reps),
-"restTime": number (in seconds),
-"imageUrl": "string (A real photo depicting this exact exercise. Use: https://source.unsplash.com/featured/?{exercise_name},fitness)",
-"notes": "string (optional tips)"
-}
-]
+  "name": "string (Short, catchy name for the workout)",
+  "description": "string (A brief motivation and summary)",
+  "category": "ai-generated",
+  "difficulty": "beginner" | "intermediate" | "advanced",
+  "duration": number (total minutes, must be greater than 0),
+  "imageUrl": "string",
+  "exercises": [
+    {
+      "id": "string (unique random id)",
+      "name": "string (name of exercise)",
+      "sets": number,
+      "reps": number,
+      "duration": number (in seconds, 0 if using reps),
+      "restTime": number (in seconds),
+      "imageUrl": "string",
+      "notes": "string (optional tips)"
+    }
+  ]
 }
 
 DO NOT include markdown block markers like \`\`\`json. Just the raw JSON.
-CRITICAL: For the imageUrl fields, you MUST provide real photography URLs. Do not use AI generators. Use Unsplash's source or specific photography hosting. Format for exercise images: https://source.unsplash.com/featured/?[exercise_name],fitness.
-Ensure the layout of the workout is safe, progressive, and fits the user's constraints.
+
+CRITICAL IMAGE RULE:
+1. YOU MUST provide direct, working URLs from Pexels or Unsplash. 
+2. FORMATS ONLY: 
+   - https://images.pexels.com/photos/[ID]/pexels-photo-[ID].jpeg?auto=compress&cs=tinysrgb&w=800
+   - https://images.unsplash.com/photo-[ID]?auto=format&fit=crop&q=80&w=800
+3. USE THESE VERIFIED FITNESS IDs FOR ACCURACY:
+   - Squats: 1552242 (Pexels) / 1571019614242-c5c5dee9f50b (Unsplash)
+   - Pushups: 176782 (Pexels) / 1571019613454-1cb2f99b2d8b (Unsplash)
+   - Dumbbells: 949126 (Pexels) / 1517836357463-d25dfeac3438 (Unsplash)
+   - Running/Treadmill: 4753996 (Pexels) / 1534438327276-14e5300c3a48 (Unsplash)
+   - Yoga/Plank: 3822906 (Pexels) / 1506150645046-10f47d04f12b (Unsplash)
+4. NEVER use "source.unsplash.com" or "loremflickr". They are too generic.
+5. If you use a different exercise, you MUST ensure the [ID] used is a known, valid ID for that specific movement.
+
+Ensure the workout is safe, progressive, and fits the user's constraints.
 `;
+
 
 export const generateWorkoutFromAI = async (
     apiKey: string,
@@ -72,7 +87,7 @@ export const generateWorkoutFromAI = async (
         const newWorkout: Workout = {
             id: Date.now().toString(),
             name: parsed.name || 'AI Generated Workout',
-            description: parsed.description || 'Custom workout built for you',
+            description: parsed.description  || 'Custom workout built for you',
             category: 'ai-generated',
             duration: parsed.duration || 30,
             difficulty: parsed.difficulty || 'intermediate',
