@@ -42,9 +42,9 @@ React.useEffect(() => {
                     <View style={styles.iconContainer}>
                         <Feather name="alert-triangle" size={48} color={Colors.dark.primary} />
                     </View>
-                    <Text style={styles.setupTitle}>API Key Missing</Text>
+                    <Text style={styles.setupTitle}>Check your internet </Text>
                     <Text style={styles.setupDescription}>
-                        Please add EXPO_PUBLIC_GEMINI_API_KEY to your .env file to use the AI Coach.
+                        Please turn on your wifi or your mobile data to use the AI Coach.
                     </Text>
                 </View>
             </View>
