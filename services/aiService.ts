@@ -87,7 +87,7 @@ export const generateWorkoutFromAI = async (
         const newWorkout: Workout = {
             id: Date.now().toString(),
             name: parsed.name || 'AI Generated Workout',
-            description: parsed.description  || 'Custom workout built for you',
+            description: parsed.description || 'Custom workout built for you',
             category: 'ai-generated',
             duration: parsed.duration || 30,
             difficulty: parsed.difficulty || 'intermediate',
